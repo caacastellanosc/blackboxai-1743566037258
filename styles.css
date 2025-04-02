@@ -1,0 +1,252 @@
+/* Custom styles beyond Tailwind */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Dark mode styles */
+.dark {
+    color-scheme: dark;
+}
+
+.dark body {
+    background-color: #0f172a; /* slate-900 */
+    color: #f8fafc; /* slate-50 */
+}
+
+.dark header {
+    background-color: rgba(15, 23, 42, 0.95); /* slate-900 con transparencia */
+}
+
+.dark header.scrolled {
+    background-color: rgba(15, 23, 42, 0.98);
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2); /* slate-500 con transparencia */
+}
+
+.dark .bg-white\/90 {
+    background-color: rgba(30, 41, 59, 0.95); /* slate-800 con transparencia */
+}
+
+.dark .text-gray-600,
+.dark .text-gray-700 {
+    color: #e2e8f0; /* slate-200 */
+}
+
+.dark .bg-gray-50 {
+    background-color: #1e293b; /* slate-800 */
+}
+
+.dark .border-gray-100 {
+    border-color: #334155; /* slate-700 */
+}
+
+.dark .glass-card {
+    background: rgba(30, 41, 59, 0.95); /* slate-800 con transparencia */
+    border: 1px solid rgba(71, 85, 105, 0.3); /* slate-600 con transparencia */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Service cards in dark mode */
+.dark .group .bg-white\/90 {
+    background: linear-gradient(135deg, 
+        rgba(30, 41, 59, 0.95), /* slate-800 */
+        rgba(51, 65, 85, 0.95) /* slate-700 */
+    );
+    border: 1px solid rgba(71, 85, 105, 0.3); /* slate-600 */
+}
+
+.dark .group:hover .bg-white\/90 {
+    background: linear-gradient(135deg, 
+        rgba(30, 41, 59, 0.98),
+        rgba(51, 65, 85, 0.98)
+    );
+    border-color: rgba(71, 85, 105, 0.5);
+}
+
+/* Form styles in dark mode */
+.dark input,
+.dark select,
+.dark textarea {
+    background-color: rgba(15, 23, 42, 0.5); /* slate-900 con transparencia */
+    border: 1px solid rgba(71, 85, 105, 0.3); /* slate-600 */
+    color: #f8fafc; /* slate-50 */
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+    background-color: rgba(15, 23, 42, 0.8);
+    border-color: #3b82f6; /* blue-500 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.dark input:hover,
+.dark select:hover,
+.dark textarea:hover {
+    background-color: rgba(15, 23, 42, 0.7);
+    border-color: rgba(71, 85, 105, 0.5);
+}
+
+/* Button gradients in dark mode */
+.dark .bg-gradient-to-r {
+    background-image: linear-gradient(to right, #2563eb, #1d4ed8); /* blue-600 to blue-700 */
+}
+
+.dark .hover\:from-secondary:hover {
+    --tw-gradient-from: #1d4ed8; /* blue-700 */
+}
+
+.dark .hover\:to-primary:hover {
+    --tw-gradient-to: #2563eb; /* blue-600 */
+}
+
+/* Language menu in dark mode */
+.dark #language-menu {
+    background-color: #1e293b; /* slate-800 */
+    border: 1px solid rgba(71, 85, 105, 0.3); /* slate-600 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dark #language-menu a:hover {
+    background-color: #334155; /* slate-700 */
+}
+
+/* Mobile menu in dark mode */
+.dark #mobile-menu {
+    background-color: rgba(15, 23, 42, 0.98); /* slate-900 con transparencia */
+    border-color: rgba(71, 85, 105, 0.3); /* slate-600 */
+}
+
+/* Success/Error messages */
+.success-message {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: rgb(16, 185, 129);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    animation: slideIn 0.5s ease;
+}
+
+.dark .success-message {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: rgb(34, 197, 94);
+}
+
+.error-message {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: rgb(239, 68, 68);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    animation: slideIn 0.5s ease;
+}
+
+.dark .error-message {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: rgb(248, 113, 113);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 5px;
+    border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-color: #1e293b;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+/* Dark mode transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+/* Icons and hover effects */
+.nav-icon {
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover .nav-icon {
+    transform: scale(1.1);
+    color: #3b82f6; /* blue-500 */
+}
+
+/* Dark mode specific hover effects */
+.dark .hover\:text-primary:hover {
+    color: #60a5fa; /* blue-400 */
+}
+
+.dark .group:hover {
+    transform: translateY(-8px);
+}
+
+/* WhatsApp button in dark mode */
+.dark .whatsapp-button {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+/* Service icon container in dark mode */
+.dark .icon-container::after {
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+}
+
+/* Card hover effects in dark mode */
+.dark .hover-shadow-effect:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    border-color: rgba(71, 85, 105, 0.5);
+}
+
+/* Background gradients in dark mode */
+.dark .bg-gradient-overlay {
+    background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.8) 0%,
+        rgba(30, 41, 59, 0.6) 50%,
+        rgba(51, 65, 85, 0.4) 100%
+    );
+}
