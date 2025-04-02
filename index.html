@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transporte Turístico Especial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="scripts.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                    },
+                    backgroundColor: {
+                        dark: '#1a1a1a',
+                        'dark-card': '#262626'
+                    },
+                    textColor: {
+                        'dark-primary': '#ffffff',
+                        'dark-secondary': '#a3a3a3'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-[Poppins] overflow-x-hidden">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-md shadow-md fixed w-full z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary flex items-center space-x-2">
+                    <i class="fas fa-bus-alt"></i>
+                    <span>TourTransport</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#inicio" class="hover:text-primary transition-colors flex items-center space-x-2 nav-link">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span data-translate="inicio">Inicio</span>
+                    </a>
+                    <a href="#servicios" class="hover:text-primary transition-colors flex items-center space-x-2 nav-link">
+                        <i class="fas fa-concierge-bell nav-icon"></i>
+                        <span data-translate="servicios">Servicios</span>
+                    </a>
+                    <a href="#contacto" class="hover:text-primary transition-colors flex items-center space-x-2 nav-link">
+                        <i class="fas fa-envelope nav-icon"></i>
+                        <span data-translate="contacto">Contacto</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Language Selector -->
+                    <div class="relative" id="language-selector">
+                        <button class="flex items-center space-x-2 text-gray-700 hover:text-primary transition-colors p-2 rounded-lg hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
+                            <i class="fas fa-globe"></i>
+                            <span class="current-lang">ES</span>
+                            <i class="fas fa-chevron-down text-sm transition-transform duration-200"></i>
+                        </button>
+                        <div class="absolute top-full right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 hidden transform origin-top-right transition-all duration-200 min-w-[160px]" id="language-menu">
+                            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm transition-colors" data-lang="es">
+                                <span class="w-6">🇪🇸</span>
+                                <span class="ml-2">Español</span>
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm transition-colors" data-lang="en">
+                                <span class="w-6">🇬🇧</span>
+                                <span class="ml-2">English</span>
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm transition-colors" data-lang="fr">
+                                <span class="w-6">🇫🇷</span>
+                                <span class="ml-2">Français</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Dark Mode Toggle -->
+                    <button id="dark-mode-toggle" class="text-gray-700 hover:text-primary transition-colors p-2 rounded-lg hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline-block"></i>
+                    </button>
+                    <!-- Book Now Button -->
+                    <a href="#contacto" 
+                       class="bg-gradient-to-r from-primary to-secondary text-white px-6 py-2 rounded-full hover:from-secondary hover:to-primary transition-all transform hover:scale-105 shadow-md hover:shadow-lg flex items-center space-x-2">
+                        <i class="fas fa-calendar-check"></i>
+                        <span data-translate="reservarAhora">Reservar Ahora</span>
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <button class="md:hidden text-primary" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div class="md:hidden hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg absolute top-full left-0 right-0 border-t border-gray-200 dark:border-gray-700" id="mobile-menu">
+                <div class="flex flex-col space-y-4 p-6">
+                    <a href="#inicio" class="hover:text-primary transition-colors flex items-center space-x-3">
+                        <i class="fas fa-home w-6"></i>
+                        <span data-translate="inicio">Inicio</span>
+                    </a>
+                    <a href="#servicios" class="hover:text-primary transition-colors flex items-center space-x-3">
+                        <i class="fas fa-concierge-bell w-6"></i>
+                        <span data-translate="servicios">Servicios</span>
+                    </a>
+                    <a href="#contacto" class="hover:text-primary transition-colors flex items-center space-x-3">
+                        <i class="fas fa-envelope w-6"></i>
+                        <span data-translate="contacto">Contacto</span>
+                    </a>
+                    <!-- Language Selector Mobile -->
+                    <div class="flex items-center space-x-3 py-2">
+                        <i class="fas fa-globe w-6"></i>
+                        <select class="bg-transparent dark:bg-gray-700 rounded-lg px-2 py-1 text-sm" id="mobile-language-selector">
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                        </select>
+                    </div>
+                    <!-- Dark Mode Toggle Mobile -->
+                    <button class="flex items-center space-x-3 hover:text-primary transition-colors w-full text-left" id="mobile-dark-mode-toggle">
+                        <i class="fas fa-moon w-6 dark:hidden"></i>
+                        <i class="fas fa-sun w-6 hidden dark:inline-block"></i>
+                        <span class="dark:hidden">Modo oscuro</span>
+                        <span class="hidden dark:inline-block">Modo claro</span>
+                    </button>
+                    <a href="#contacto" 
+                       class="bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-full hover:from-secondary hover:to-primary transition-all text-center shadow-md hover:shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fas fa-calendar-check"></i>
+                        <span data-translate="reservarAhora">Reservar Ahora</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <div class="relative h-full">
+                    <img src="https://images.pexels.com/photos/2533092/pexels-photo-2533092.jpeg" 
+                         alt="Transporte turístico" 
+                         class="w-full h-full object-cover dark:brightness-50">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60 dark:from-slate-900/90 dark:to-slate-900/70"></div>
+                </div>
+            </div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-white" data-aos="fade-right">
+                        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight" data-translate="heroTitle">
+                            Viaja con Estilo y Comodidad
+                        </h1>
+                        <p class="text-xl md:text-2xl mb-8 text-gray-300" data-translate="heroSubtitle">
+                            Descubre una nueva forma de viajar con nuestro servicio premium de transporte turístico
+                        </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contacto" 
+                           class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full hover:from-secondary hover:to-primary transition-all transform hover:scale-105 inline-flex items-center space-x-2 shadow-lg hover:shadow-xl">
+                            <span data-translate="reservarAhora">Reserva Ahora</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#servicios" 
+                           class="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full hover:bg-white/20 transition-all shadow-lg hover:shadow-xl">
+                            Conoce más
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block" data-aos="fade-left">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl hover:bg-white/20 transition-all duration-300 dark:bg-slate-800/50 dark:hover:bg-slate-800/70">
+                                <i class="fas fa-map-marked-alt text-4xl text-primary mb-4"></i>
+                                <h3 class="text-white text-xl font-semibold" data-translate="destinosUnicos">Destinos Únicos</h3>
+                                <p class="text-gray-300" data-translate="exploraLugares">Explora lugares increíbles</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl hover:bg-white/20 transition-all duration-300 dark:bg-slate-800/50 dark:hover:bg-slate-800/70">
+                                <i class="fas fa-shield-alt text-4xl text-primary mb-4"></i>
+                                <h3 class="text-white text-xl font-semibold" data-translate="seguro">100% Seguro</h3>
+                                <p class="text-gray-300" data-translate="viajaTransquilidad">Viaja con tranquilidad</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-8">
+                            <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl hover:bg-white/20 transition-all duration-300 dark:bg-slate-800/50 dark:hover:bg-slate-800/70">
+                                <i class="fas fa-clock text-4xl text-primary mb-4"></i>
+                                <h3 class="text-white text-xl font-semibold" data-translate="disponible">24/7 Disponible</h3>
+                                <p class="text-gray-300" data-translate="siempreServicio">Siempre a tu servicio</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl hover:bg-white/20 transition-all duration-300 dark:bg-slate-800/50 dark:hover:bg-slate-800/70">
+                                <i class="fas fa-star text-4xl text-primary mb-4"></i>
+                                <h3 class="text-white text-xl font-semibold" data-translate="primeraClase">Primera Clase</h3>
+                                <p class="text-gray-300" data-translate="servicioPremium">Servicio premium</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#servicios" class="text-white">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary" data-translate="nuestrosServicios">Nuestros Servicios</h2>
+                <p class="text-gray-600 text-lg dark:text-gray-400" data-translate="descubreServicios">Descubre nuestra amplia gama de servicios de transporte diseñados para hacer tu viaje inolvidable</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Servicio 1 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-all duration-300 transform group-hover:scale-110">
+                                <i class="fas fa-car text-4xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2" data-translate="transportePrivado">Transporte Privado</h3>
+                            <p class="text-gray-700 leading-relaxed">Viaja con comodidad y privacidad en nuestros vehículos de lujo.</p>
+                        </div>
+                        <ul class="text-gray-700 space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Choferes profesionales
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Vehículos modernos
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Servicio personalizado
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Servicio 2 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-all duration-300 transform group-hover:scale-110">
+                                <i class="fas fa-users text-4xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2" data-translate="toursGrupales">Tours Grupales</h3>
+                            <p class="text-gray-700 leading-relaxed">Excursiones organizadas para grupos con guías expertos.</p>
+                        </div>
+                        <ul class="text-gray-700 space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Guías certificados
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Rutas planificadas
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Experiencias únicas
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Servicio 3 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-all duration-300 transform group-hover:scale-110">
+                                <i class="fas fa-plane text-4xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2" data-translate="trasladosAeropuerto">Traslados al Aeropuerto</h3>
+                            <p class="text-gray-700 leading-relaxed">Servicio puntual y confiable hacia y desde el aeropuerto.</p>
+                        </div>
+                        <ul class="text-gray-700 space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Monitoreo de vuelos
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Servicio 24/7
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Asistencia con equipaje
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Servicio 4 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-all duration-300 transform group-hover:scale-110">
+                                <i class="fas fa-crown text-4xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2" data-translate="transporteVip">Transporte VIP</h3>
+                            <p class="text-gray-700 leading-relaxed">Experiencia premium con choferes profesionales y vehículos de lujo.</p>
+                        </div>
+                        <ul class="text-gray-700 space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Vehículos de lujo
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Servicio exclusivo
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i>
+                                Máxima comodidad
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contacto" class="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-slate-800 dark:to-slate-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary" data-translate="contactanos">Contáctanos</h2>
+                <p class="text-gray-600 text-lg dark:text-gray-400" data-translate="planificarViaje">Estamos aquí para ayudarte a planificar tu próximo viaje</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-slate-700" data-aos="fade-up">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-translate="nombre">Nombre</label>
+                                <input type="text" id="name" name="name" required
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white/50 hover:bg-white dark:bg-slate-800/50 dark:border-slate-600"
+                                       data-placeholder="placeholderNombre">
+                            </div>
+                            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-translate="correoElectronico">Correo Electrónico</label>
+                                <input type="email" id="email" name="email" required
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white/50 hover:bg-white dark:bg-slate-800/50 dark:border-slate-600"
+                                       data-placeholder="placeholderEmail">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-translate="telefono">Teléfono</label>
+                                <input type="tel" id="phone" name="phone" required
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white/50 hover:bg-white dark:bg-slate-800/50 dark:border-slate-600"
+                                       data-placeholder="placeholderTelefono">
+                            </div>
+                            <div>
+                <label for="service" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-translate="servicioInteres">Servicio de Interés</label>
+                                <select id="service" name="service" required
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white/50 hover:bg-white">
+                                    <option value="" data-translate="seleccioneServicio">Seleccione un servicio</option>
+                                    <option value="transporte-privado" data-translate="transportePrivado">Transporte Privado</option>
+                                    <option value="tours-grupales" data-translate="toursGrupales">Tours Grupales</option>
+                                    <option value="traslados-aeropuerto" data-translate="trasladosAeropuerto">Traslados al Aeropuerto</option>
+                                    <option value="transporte-vip" data-translate="transporteVip">Transporte VIP</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-translate="mensaje">Mensaje</label>
+                            <textarea id="message" name="message" rows="4" required
+                                      class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white/50 hover:bg-white dark:bg-slate-800/50 dark:border-slate-600"
+                                      data-placeholder="placeholderMensaje"></textarea>
+                        </div>
+                        <div class="text-center">
+                                <button type="submit"
+                                    class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full hover:from-secondary hover:to-primary transition-all transform hover:scale-105 inline-flex items-center space-x-2 shadow-lg hover:shadow-xl">
+                                    <span data-translate="enviarMensaje">Enviar Mensaje</span>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                        </div>
+                    </form>
+                    <!-- Success/Error Message -->
+                    <div id="form-message" class="mt-4 text-center hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/1234567890" 
+       target="_blank"
+       class="fixed bottom-6 right-6 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full p-4 hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl z-50 transform hover:scale-110">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12 border-t border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4" data-translate="contacto">Contacto</h3>
+                    <div class="space-y-2">
+                        <p class="flex items-center hover:text-primary transition-colors">
+                            <i class="fas fa-phone mr-2"></i>
+                            <a href="tel:+1234567890" class="hover:underline">+1 234 567 890</a>
+                        </p>
+                        <p class="flex items-center hover:text-primary transition-colors">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <a href="mailto:info@tourtransport.com" class="hover:underline">info@tourtransport.com</a>
+                        </p>
+                        <p class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span data-translate="direccion">123 Calle Principal, Ciudad</span>
+                        </p>
+                    </div>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4" data-translate="enlacesRapidos">Enlaces Rápidos</h3>
+                    <div class="space-y-2">
+                        <p><a href="#inicio" class="hover:text-primary transition-colors" data-translate="inicio">Inicio</a></p>
+                        <p><a href="#servicios" class="hover:text-primary transition-colors" data-translate="servicios">Servicios</a></p>
+                        <p><a href="#contacto" class="hover:text-primary transition-colors" data-translate="contacto">Contacto</a></p>
+                    </div>
+                </div>
+                <!-- Social Media -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4" data-translate="siguenos">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-facebook text-2xl"></i></a>
+                        <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-instagram text-2xl"></i></a>
+                        <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-twitter text-2xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8 pt-8 border-t border-gray-700">
+                <p>&copy; 2024 TourTransport. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+</body>
+</html>
